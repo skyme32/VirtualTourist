@@ -11,22 +11,58 @@
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A8B-md-iKU">
+                                <rect key="frame" x="143" y="365" width="128" height="166"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flame.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GYJ-cR-Sew">
+                                        <rect key="frame" x="0.0" y="-0.5" width="128" height="128"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="128" id="9dZ-VT-Xyy"/>
+                                            <constraint firstAttribute="height" constant="128" id="uiu-MM-oGR"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="skyme32" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sg1-8r-l6w">
+                                        <rect key="frame" x="8" y="136" width="112" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstItem="Sg1-8r-l6w" firstAttribute="leading" secondItem="A8B-md-iKU" secondAttribute="leading" constant="8" id="BQi-IK-5Wa"/>
+                                    <constraint firstAttribute="bottom" secondItem="Sg1-8r-l6w" secondAttribute="bottom" id="G1W-gr-sWQ"/>
+                                    <constraint firstItem="GYJ-cR-Sew" firstAttribute="top" secondItem="A8B-md-iKU" secondAttribute="top" id="PWa-qg-LR4"/>
+                                    <constraint firstAttribute="trailing" secondItem="GYJ-cR-Sew" secondAttribute="trailing" id="V3i-OE-gb8"/>
+                                    <constraint firstItem="Sg1-8r-l6w" firstAttribute="top" secondItem="GYJ-cR-Sew" secondAttribute="bottom" constant="8" id="i8j-wF-NY9"/>
+                                    <constraint firstItem="GYJ-cR-Sew" firstAttribute="leading" secondItem="A8B-md-iKU" secondAttribute="leading" id="rjb-2G-xI3"/>
+                                    <constraint firstAttribute="trailing" secondItem="Sg1-8r-l6w" secondAttribute="trailing" constant="8" id="xmv-cU-6fA"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        <constraints>
+                            <constraint firstItem="A8B-md-iKU" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8fy-kH-xOY"/>
+                            <constraint firstItem="A8B-md-iKU" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="ksv-vf-mMA"/>
+                        </constraints>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="-191" y="-77"/>
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <image name="flame.fill" catalog="system" width="108" height="128"/>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
