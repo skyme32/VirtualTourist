@@ -32,24 +32,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Fci-Sr-LPh">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="r2g-jY-NLd">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Fci-Sr-LPh" secondAttribute="bottom" id="XX7-MI-5gX"/>
-                            <constraint firstItem="Fci-Sr-LPh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mQR-ox-vBG"/>
-                            <constraint firstItem="Fci-Sr-LPh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oLs-e1-0fL"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Fci-Sr-LPh" secondAttribute="trailing" id="qaa-yV-fGJ"/>
+                            <constraint firstItem="r2g-jY-NLd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="G8P-ja-VX0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="r2g-jY-NLd" secondAttribute="bottom" id="OGE-Qe-Bxk"/>
+                            <constraint firstItem="r2g-jY-NLd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="X84-vA-8zV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="r2g-jY-NLd" secondAttribute="trailing" id="kq4-B3-nEG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Virtual Tourist" id="S3Y-2Z-4hl"/>
+                    <connections>
+                        <segue destination="9W1-3U-llx" kind="show" id="wGD-au-9f7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="81"/>
+        </scene>
+        <!--Photo Album-->
+        <scene sceneID="HYY-kH-M3q">
+            <objects>
+                <viewController id="9W1-3U-llx" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="d14-Mf-6np">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Aow-5H-S9V">
+                                <rect key="frame" x="0.0" y="88" width="414" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="tXb-Wx-cQt"/>
+                                </constraints>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTe-rd-BmP">
+                                <rect key="frame" x="0.0" y="820" width="414" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="67Y-13-vAA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="New Collection"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="R0H-OM-NbR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Aow-5H-S9V" firstAttribute="top" secondItem="R0H-OM-NbR" secondAttribute="top" id="3io-eH-AMj"/>
+                            <constraint firstItem="R0H-OM-NbR" firstAttribute="bottom" secondItem="FTe-rd-BmP" secondAttribute="bottom" id="Csp-Hk-0Wg"/>
+                            <constraint firstItem="FTe-rd-BmP" firstAttribute="leading" secondItem="R0H-OM-NbR" secondAttribute="leading" id="Tqh-X5-lRb"/>
+                            <constraint firstItem="Aow-5H-S9V" firstAttribute="leading" secondItem="R0H-OM-NbR" secondAttribute="leading" id="hvj-7m-xJb"/>
+                            <constraint firstItem="R0H-OM-NbR" firstAttribute="trailing" secondItem="FTe-rd-BmP" secondAttribute="trailing" id="kR1-N1-1Xj"/>
+                            <constraint firstItem="R0H-OM-NbR" firstAttribute="trailing" secondItem="Aow-5H-S9V" secondAttribute="trailing" id="udH-jZ-Aws"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Photo Album" id="hW4-Ey-F1r"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FDT-lB-FLN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="980" y="80"/>
         </scene>
     </scenes>
     <resources>
