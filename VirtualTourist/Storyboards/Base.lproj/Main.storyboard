@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -66,32 +67,76 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Aow-5H-S9V">
                                 <rect key="frame" x="0.0" y="88" width="414" height="240"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="tXb-Wx-cQt"/>
+                                    <constraint firstAttribute="height" constant="240" id="OWI-iL-rdd"/>
                                 </constraints>
                             </mapView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kLe-zV-vNh">
+                                <rect key="frame" x="0.0" y="328" width="414" height="534"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8sS-VU-Gxc">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cellPicture" id="EDs-6q-aEC" customClass="CellPicture" customModule="VirtualTourist" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="XTZ-48-ode">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="photo.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8NC-mL-DuY">
+                                                    <rect key="frame" x="0.0" y="1" width="128" height="125.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" systemColor="opaqueSeparatorColor"/>
+                                                </imageView>
+                                            </subviews>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="128" height="128"/>
+                                        <connections>
+                                            <outlet property="imageCell" destination="8NC-mL-DuY" id="XEC-wR-6gl"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="9W1-3U-llx" id="xmK-12-YAy"/>
+                                    <outlet property="delegate" destination="9W1-3U-llx" id="7eL-ww-Gcb"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="R0H-OM-NbR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Aow-5H-S9V" firstAttribute="top" secondItem="R0H-OM-NbR" secondAttribute="top" id="3io-eH-AMj"/>
-                            <constraint firstItem="Aow-5H-S9V" firstAttribute="leading" secondItem="R0H-OM-NbR" secondAttribute="leading" id="hvj-7m-xJb"/>
-                            <constraint firstItem="R0H-OM-NbR" firstAttribute="trailing" secondItem="Aow-5H-S9V" secondAttribute="trailing" id="udH-jZ-Aws"/>
+                            <constraint firstItem="R0H-OM-NbR" firstAttribute="bottom" secondItem="kLe-zV-vNh" secondAttribute="bottom" id="Bxh-mR-MNe"/>
+                            <constraint firstItem="kLe-zV-vNh" firstAttribute="top" secondItem="Aow-5H-S9V" secondAttribute="bottom" id="OYp-m1-bxy"/>
+                            <constraint firstItem="Aow-5H-S9V" firstAttribute="trailing" secondItem="R0H-OM-NbR" secondAttribute="trailing" id="OuC-FB-Mvg"/>
+                            <constraint firstItem="kLe-zV-vNh" firstAttribute="leading" secondItem="R0H-OM-NbR" secondAttribute="leading" id="Vb9-sp-XLD"/>
+                            <constraint firstItem="Aow-5H-S9V" firstAttribute="leading" secondItem="R0H-OM-NbR" secondAttribute="leading" id="ezB-VC-Cdc"/>
+                            <constraint firstItem="Aow-5H-S9V" firstAttribute="top" secondItem="R0H-OM-NbR" secondAttribute="top" id="gEd-g5-FUe"/>
+                            <constraint firstItem="R0H-OM-NbR" firstAttribute="trailing" secondItem="kLe-zV-vNh" secondAttribute="trailing" id="zo7-Kp-6LE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Photo Album" id="hW4-Ey-F1r">
                         <barButtonItem key="rightBarButtonItem" title="Reload" image="arrow.clockwise" catalog="system" id="Ad3-92-ELM"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionView" destination="kLe-zV-vNh" id="xvc-F2-NZX"/>
                         <outlet property="mapLocation" destination="Aow-5H-S9V" id="g1x-ua-6ok"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FDT-lB-FLN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="980" y="80"/>
+            <point key="canvasLocation" x="979.71014492753636" y="79.6875"/>
         </scene>
     </scenes>
     <resources>
         <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
+        <image name="photo.fill" catalog="system" width="128" height="93"/>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
