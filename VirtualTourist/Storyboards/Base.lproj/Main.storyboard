@@ -58,7 +58,7 @@
         <!--Photo Album-->
         <scene sceneID="HYY-kH-M3q">
             <objects>
-                <viewController id="9W1-3U-llx" sceneMemberID="viewController">
+                <viewController id="9W1-3U-llx" customClass="PhotoAlbumViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="d14-Mf-6np">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -79,8 +79,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Photo Album" id="hW4-Ey-F1r">
-                        <barButtonItem key="rightBarButtonItem" title="Reload" image="gobackward" catalog="system" id="Ad3-92-ELM"/>
+                        <barButtonItem key="rightBarButtonItem" title="Reload" image="arrow.clockwise" catalog="system" id="Ad3-92-ELM"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mapLocation" destination="Aow-5H-S9V" id="g1x-ua-6ok"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FDT-lB-FLN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -88,7 +91,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gobackward" catalog="system" width="121" height="128"/>
+        <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

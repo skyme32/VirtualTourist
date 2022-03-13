@@ -45,6 +45,14 @@ class TravelLocationsMapViewController: UIViewController {
         super.viewDidDisappear(animated)
         fetchedController = nil
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "sendLocation" {
+            let photoLocation = segue.destination as! PhotoAlbumViewController
+            photoLocation.annotation = (sender as! MKAnnotation)
+            photoLocation.dataController = dataController
+        }
+    }
 }
 
 // MARK: MapKit delegte
@@ -68,8 +76,8 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
         
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
-            if let urlExtern = view.annotation?.subtitle! {
-                
+            if let annotation = view.annotation {
+                performSegue(withIdentifier: "sendLocation", sender: annotation)
             }
         }
     }
