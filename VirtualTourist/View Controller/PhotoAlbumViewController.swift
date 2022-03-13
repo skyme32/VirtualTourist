@@ -44,13 +44,19 @@ class PhotoAlbumViewController: UIViewController {
         super.viewDidDisappear(animated)
         fetchedController = nil
     }
+    
+    // MARK: Actions to Buttons
+    @IBAction func reloadImages(_ sender: Any) {
+        getPhotosList()
+    }
+    
 
     // MARK: Private methods
     
     private func getPhotosList() {
         FlickrClient.getSearchGeoPhotoList(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude) { photos, error in
             PhotoModel.shared.photoslist = photos
-            print(photos)
+            self.collectionView.reloadData()
         }
     }
 }
@@ -93,11 +99,29 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return PhotoModel.shared.photoslist.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellPicture", for: indexPath) as! CellPicture
+        cell.indicator.startAnimating()
+        cell.indicator.isHidden = false
+        
+        if !PhotoModel.shared.photoslist.isEmpty {
+            let pin = PhotoModel.shared.photoslist[indexPath.row]
+            
+            FlickrClient.downloadPosterImage(url: pin.urlImage) { data, Error in
+                guard let data = data else {
+                    return
+                }
+                let image = UIImage(data: data)
+                cell.imageCell?.image = image
+                cell.setNeedsLayout()
+                cell.indicator.stopAnimating()
+                cell.indicator.isHidden = true
+            }
+        }
+        
         return cell
     }
 }

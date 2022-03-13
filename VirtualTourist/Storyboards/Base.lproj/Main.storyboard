@@ -87,16 +87,24 @@
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="photo.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8NC-mL-DuY">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8NC-mL-DuY">
                                                     <rect key="frame" x="0.0" y="1" width="128" height="125.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" systemColor="opaqueSeparatorColor"/>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="OUP-PF-Byn">
+                                                    <rect key="frame" x="54" y="54" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="OUP-PF-Byn" firstAttribute="centerY" secondItem="XTZ-48-ode" secondAttribute="centerY" id="15T-hO-DrT"/>
+                                                <constraint firstItem="OUP-PF-Byn" firstAttribute="centerX" secondItem="XTZ-48-ode" secondAttribute="centerX" id="KqF-kE-MZN"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="128" height="128"/>
                                         <connections>
                                             <outlet property="imageCell" destination="8NC-mL-DuY" id="XEC-wR-6gl"/>
+                                            <outlet property="indicator" destination="OUP-PF-Byn" id="b2x-0b-Ub1"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -119,7 +127,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Photo Album" id="hW4-Ey-F1r">
-                        <barButtonItem key="rightBarButtonItem" title="Reload" image="arrow.clockwise" catalog="system" id="Ad3-92-ELM"/>
+                        <barButtonItem key="rightBarButtonItem" title="Reload" image="arrow.clockwise" catalog="system" id="Ad3-92-ELM">
+                            <connections>
+                                <action selector="reloadImages:" destination="9W1-3U-llx" id="Ve3-o7-vPJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="kLe-zV-vNh" id="xvc-F2-NZX"/>
@@ -133,7 +145,6 @@
     </scenes>
     <resources>
         <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
-        <image name="photo.fill" catalog="system" width="128" height="93"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -12,4 +12,5 @@ import UIKit
 
 class CellPicture: UICollectionViewCell {
     @IBOutlet weak var imageCell: UIImageView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
 }

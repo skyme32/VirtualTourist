@@ -25,11 +25,14 @@ class FlickrClient {
         static let base = "https://www.flickr.com/services/rest"
         
         case searchGeoPhoto(Double, Double)
+        case getUrl(String)
         
         var stringValue: String {
             switch self {
-                case .searchGeoPhoto(let lat, let lon):
+            case .searchGeoPhoto(let lat, let lon):
                 return Endpoints.base + "/?method=flickr.photos.search&api_key=\(Auth.key)&lat=\(lat)&lon=\(lon)&format=json&nojsoncallback=1&extras=url_m&per_page=\(Page.perPage)&page=\(Page.choosePage)"
+            case .getUrl(let url):
+                return url
             }
         }
         
@@ -49,6 +52,15 @@ class FlickrClient {
                 completion([], error)
             }
         }
+    }
+    
+    class func downloadPosterImage(url: String, completion: @escaping (Data?, Error?) -> Void) {
+        let task = URLSession.shared.dataTask(with: Endpoints.getUrl(url).url) { data, response, error in
+            DispatchQueue.main.async {
+                completion(data, error)
+            }
+        }
+        task.resume()
     }
 
 }
