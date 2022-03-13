@@ -36,6 +36,7 @@ class PhotoAlbumViewController: UIViewController {
         if let pin = annotation {
             mapLocation.addAnnotation(pin)
             zoomRegion()
+            getPhotosList()
         }
     }
     
@@ -44,10 +45,17 @@ class PhotoAlbumViewController: UIViewController {
         fetchedController = nil
     }
 
+    // MARK: Private methods
+    
+    private func getPhotosList() {
+        FlickrClient.getSearchGeoPhotoList(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude) { photos, error in
+            PhotoModel.shared.photoslist = photos
+            print(photos)
+        }
+    }
 }
 
-
-// MARK: MapKit delegte
+// MARK: MapKit delegate
 extension PhotoAlbumViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -92,7 +100,6 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellPicture", for: indexPath) as! CellPicture
         return cell
     }
-    
 }
 
 extension PhotoAlbumViewController: UICollectionViewDelegateFlowLayout {
