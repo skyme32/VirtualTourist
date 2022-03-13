@@ -9,10 +9,11 @@
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="pin" inverseEntity="Photo"/>
     </entity>
     <elements>
-        <element name="Pin" positionX="-176.5471801757812" positionY="1721.039123535156" width="128" height="103"/>
         <element name="Photo" positionX="64.61181640625" positionY="1736.052398681641" width="128" height="88"/>
+        <element name="Pin" positionX="-176.5471801757812" positionY="1721.039123535156" width="128" height="104"/>
     </elements>
 </model>

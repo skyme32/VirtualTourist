@@ -46,10 +46,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Virtual Tourist" id="S3Y-2Z-4hl"/>
+                    <connections>
+                        <outlet property="mapVirtualTourist" destination="r2g-jY-NLd" id="FKn-6e-KX5"/>
+                        <segue destination="9W1-3U-llx" kind="show" identifier="sendLocation" id="Wcr-Mj-pqF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="81"/>
+            <point key="canvasLocation" x="131.8840579710145" y="80.357142857142847"/>
         </scene>
         <!--Photo Album-->
         <scene sceneID="HYY-kH-M3q">
@@ -60,33 +64,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Aow-5H-S9V">
-                                <rect key="frame" x="0.0" y="44" width="414" height="240"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="tXb-Wx-cQt"/>
                                 </constraints>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTe-rd-BmP">
-                                <rect key="frame" x="0.0" y="820" width="414" height="42"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="67Y-13-vAA"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="New Collection"/>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="R0H-OM-NbR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Aow-5H-S9V" firstAttribute="top" secondItem="R0H-OM-NbR" secondAttribute="top" id="3io-eH-AMj"/>
-                            <constraint firstItem="R0H-OM-NbR" firstAttribute="bottom" secondItem="FTe-rd-BmP" secondAttribute="bottom" id="Csp-Hk-0Wg"/>
-                            <constraint firstItem="FTe-rd-BmP" firstAttribute="leading" secondItem="R0H-OM-NbR" secondAttribute="leading" id="Tqh-X5-lRb"/>
                             <constraint firstItem="Aow-5H-S9V" firstAttribute="leading" secondItem="R0H-OM-NbR" secondAttribute="leading" id="hvj-7m-xJb"/>
-                            <constraint firstItem="R0H-OM-NbR" firstAttribute="trailing" secondItem="FTe-rd-BmP" secondAttribute="trailing" id="kR1-N1-1Xj"/>
                             <constraint firstItem="R0H-OM-NbR" firstAttribute="trailing" secondItem="Aow-5H-S9V" secondAttribute="trailing" id="udH-jZ-Aws"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Photo Album" id="hW4-Ey-F1r"/>
+                    <navigationItem key="navigationItem" title="Photo Album" id="hW4-Ey-F1r">
+                        <barButtonItem key="rightBarButtonItem" title="Reload" image="gobackward" catalog="system" id="Ad3-92-ELM"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FDT-lB-FLN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -94,6 +88,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gobackward" catalog="system" width="121" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4824233927DD60B800CF4B26 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4824233827DD60B800CF4B26 /* DataController.swift */; };
 		48532AA627DD226B002F4360 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48532AA527DD226B002F4360 /* AppDelegate.swift */; };
 		48532AA827DD226B002F4360 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48532AA727DD226B002F4360 /* SceneDelegate.swift */; };
 		48532AAD27DD226B002F4360 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48532AAB27DD226B002F4360 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4824233827DD60B800CF4B26 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		48532AA227DD226B002F4360 /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48532AA527DD226B002F4360 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48532AA727DD226B002F4360 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +47,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4824233727DD60A900CF4B26 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				4824233827DD60B800CF4B26 /* DataController.swift */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
 		48532A9927DD226A002F4360 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				48532AAE27DD226B002F4360 /* VirtualTourist.xcdatamodeld */,
+				4824233727DD60A900CF4B26 /* data */,
 				48E0EA0927DD358700E5364E /* client */,
 				48E0EA0827DD355F00E5364E /* response */,
 			);
@@ -211,6 +222,7 @@
 				48532AB027DD226B002F4360 /* VirtualTourist.xcdatamodeld in Sources */,
 				48532AA627DD226B002F4360 /* AppDelegate.swift in Sources */,
 				48532AA827DD226B002F4360 /* SceneDelegate.swift in Sources */,
+				4824233927DD60B800CF4B26 /* DataController.swift in Sources */,
 				48E0EA0B27DD35C100E5364E /* FlickrClient.swift in Sources */,
 				48E0EA0D27DD35D100E5364E /* FlickrResponse.swift in Sources */,
 			);
