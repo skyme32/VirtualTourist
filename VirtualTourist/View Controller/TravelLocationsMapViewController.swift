@@ -16,9 +16,7 @@ class TravelLocationsMapViewController: UIViewController {
     
     // MARK: Variables
     var dataController:DataController!
-    
     var fetchedController:NSFetchedResultsController<Pin>!
-    
     var pins: [Pin] = []
     
     
@@ -49,7 +47,7 @@ class TravelLocationsMapViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sendLocation" {
             let photoLocation = segue.destination as! PhotoAlbumViewController
-            photoLocation.annotation = (sender as! MKAnnotation)
+            photoLocation.pin = (sender as! Pin)
             photoLocation.dataController = dataController
         }
     }
@@ -77,7 +75,7 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             if let annotation = view.annotation {
-                performSegue(withIdentifier: "sendLocation", sender: annotation)
+                performSegue(withIdentifier: "sendLocation", sender: findPin(coordinate: annotation.coordinate)!)
             }
         }
     }
@@ -128,7 +126,7 @@ extension TravelLocationsMapViewController: NSFetchedResultsControllerDelegate {
         let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        fetchedController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "photos")
+        fetchedController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedController.delegate = self
         do {
             try pins = dataController.viewContext.fetch(fetchRequest)
@@ -154,6 +152,14 @@ extension TravelLocationsMapViewController: NSFetchedResultsControllerDelegate {
         pinSave.creationDate = Date()
         pinSave.longitude = longitude
         pinSave.latitude = latitude
+        pins.append(pinSave)
         try? dataController.viewContext.save()
+    }
+    
+    func findPin(coordinate: CLLocationCoordinate2D) -> Pin? {
+        let outputfiler = pins.filter({
+            $0.longitude == coordinate.longitude && $0.latitude == coordinate.latitude
+        })
+        return outputfiler[0]
     }
 }

@@ -18,11 +18,10 @@ class PhotoAlbumViewController: UIViewController {
     
     // MARK: Variables
     var dataController:DataController!
-    
-    var fetchedController:NSFetchedResultsController<Pin>!
-    
-    var annotation: MKAnnotation!
+    var fetchedController:NSFetchedResultsController<Photo>!
+    var pin: Pin!
 
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,11 +32,17 @@ class PhotoAlbumViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let pin = annotation {
-            mapLocation.addAnnotation(pin)
+        if pin != nil {
             zoomRegion()
-            getPhotosList()
+            addPointAnnotation()
+            setupFetchedResultsController()
+            
+            if pin.photos?.count == 0 {
+                getPhotosList()
+            }
         }
+        
+        self.collectionView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -47,16 +52,37 @@ class PhotoAlbumViewController: UIViewController {
     
     // MARK: Actions to Buttons
     @IBAction func reloadImages(_ sender: Any) {
+        deleteImages()
         getPhotosList()
+        self.collectionView.reloadData()
     }
     
 
     // MARK: Private methods
     
     private func getPhotosList() {
-        FlickrClient.getSearchGeoPhotoList(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude) { photos, error in
-            PhotoModel.shared.photoslist = photos
-            self.collectionView.reloadData()
+        FlickrClient.getSearchGeoPhotoList(latitude: pin.latitude, longitude: pin.longitude) { photos, error in
+            if !photos.isEmpty {
+                
+                for photoResponse in photos {
+                    let photo = Photo(context: self.dataController.viewContext)
+                    photo.id = photoResponse.id
+                    photo.title = photoResponse.title
+                    photo.pin = self.pin
+                    photo.url = photoResponse.urlImage
+                    self.pin.addToPhotos(photo)
+                    
+                    try? self.dataController.viewContext.save()
+                }
+            }
+        }
+    }
+    
+    // Deletes the `Images` at the specified index path
+    func deleteImages() {
+        for imageDelete in fetchedController.fetchedObjects! {
+            dataController.viewContext.delete(imageDelete)
+            try? dataController.viewContext.save()
         }
     }
 }
@@ -80,15 +106,20 @@ extension PhotoAlbumViewController: MKMapViewDelegate {
         return pinView
     }
     
-    func zoomRegion() {
-        let center = CLLocationCoordinate2D(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+    fileprivate func zoomRegion() {
+        let center = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
         mapLocation.setRegion(region, animated: true)
     }
-}
-
-// MARK: Core Data Delegate
-extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
+    
+    fileprivate func addPointAnnotation() {
+        let myPin: MKPointAnnotation = MKPointAnnotation()
+        myPin.coordinate.latitude = pin.latitude
+        myPin.coordinate.longitude = pin.longitude
+        myPin.title = pin.title
+        
+        mapLocation.addAnnotation(myPin)
+    }
 }
 
 // MARK: Collection View Delegate
@@ -99,18 +130,18 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return PhotoModel.shared.photoslist.count
+        return fetchedController.sections?[0].numberOfObjects ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let imageFetched = fetchedController.object(at: indexPath)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellPicture", for: indexPath) as! CellPicture
-        cell.indicator.startAnimating()
-        cell.indicator.isHidden = false
         
-        if !PhotoModel.shared.photoslist.isEmpty {
-            let pin = PhotoModel.shared.photoslist[indexPath.row]
-            
-            FlickrClient.downloadPosterImage(url: pin.urlImage) { data, Error in
+        if (imageFetched.image == nil) {
+            cell.indicator.startAnimating()
+            cell.indicator.isHidden = false
+               
+            FlickrClient.downloadPosterImage(url: imageFetched.url!) { data, Error in
                 guard let data = data else {
                     return
                 }
@@ -119,7 +150,12 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
                 cell.setNeedsLayout()
                 cell.indicator.stopAnimating()
                 cell.indicator.isHidden = true
-            }
+                
+                imageFetched.image = data
+                try? self.dataController.viewContext.save()
+               }
+        } else {
+            cell.imageCell?.image = UIImage(data: imageFetched.image!)
         }
         
         return cell
@@ -138,5 +174,56 @@ extension PhotoAlbumViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 1
+    }
+}
+
+
+// MARK: Core Data Delegate
+extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
+    
+    func setupFetchedResultsController() {
+        let fetchRequest:NSFetchRequest<Photo> = Photo.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "pin == %@", pin!)
+        
+        let sortDescriptor = NSSortDescriptor(key: "id", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        fetchedController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedController.delegate = self
+        
+        do {
+            try fetchedController.performFetch()
+        } catch {
+            fatalError("The fetch could not be performed: \(error.localizedDescription)")
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert:
+            collectionView.insertItems(at: [newIndexPath!])
+            break
+        case .delete:
+            collectionView.deleteItems(at: [indexPath!])
+            break
+        case .update:
+            collectionView.reloadItems(at: [indexPath!])
+        case .move:
+            collectionView.moveItem(at: indexPath!, to: newIndexPath!)
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
+        let indexSet = IndexSet(integer: sectionIndex)
+        switch type {
+        case .insert:
+            collectionView.insertSections(indexSet)
+        case .delete:
+            collectionView.deleteSections(indexSet)
+        case .update, .move:
+            fatalError("Invalid change type in controller(_:didChange:atSectionIndex:for:). Only .insert or .delete should be possible.")
+        }
     }
 }
