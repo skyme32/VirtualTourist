@@ -76,9 +76,13 @@ class PhotoAlbumViewController: UIViewController {
     // Deletes the `Images` at the specified index path
     func deleteImages() {
         for imageDelete in fetchedController.fetchedObjects! {
-            dataController.viewContext.delete(imageDelete)
-            try? dataController.viewContext.save()
+            deleteIndex(photo: imageDelete)
         }
+    }
+    
+    func deleteIndex(photo: Photo) {
+        dataController.viewContext.delete(photo)
+        try? dataController.viewContext.save()
     }
 }
 
@@ -121,7 +125,8 @@ extension PhotoAlbumViewController: MKMapViewDelegate {
 extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+        let imageDelete = fetchedController.object(at: indexPath)
+        deleteIndex(photo: imageDelete)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
