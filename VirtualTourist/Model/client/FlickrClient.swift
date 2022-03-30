@@ -15,7 +15,7 @@ class FlickrClient {
     }
     
     struct Page {
-        static var perPage = 24
+        static var perPage = 10
         static var choosePage = Int.random(in: 1..<perPage)
     }
 

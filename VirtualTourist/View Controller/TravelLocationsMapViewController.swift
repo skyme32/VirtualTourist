@@ -42,6 +42,7 @@ class TravelLocationsMapViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fetchedController = nil
+        self.mapVirtualTourist.removeAnnotations(self.mapVirtualTourist.annotations)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
