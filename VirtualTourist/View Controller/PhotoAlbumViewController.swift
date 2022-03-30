@@ -24,11 +24,6 @@ class PhotoAlbumViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        mapLocation.delegate = self
-        collectionView.delegate = self
-        collectionView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {

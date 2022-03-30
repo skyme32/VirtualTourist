@@ -69,6 +69,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="OWI-iL-rdd"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="9W1-3U-llx" id="eZ5-pu-jQG"/>
+                                </connections>
                             </mapView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kLe-zV-vNh">
                                 <rect key="frame" x="0.0" y="328" width="414" height="534"/>
@@ -110,7 +113,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="9W1-3U-llx" id="xmK-12-YAy"/>
-                                    <outlet property="delegate" destination="9W1-3U-llx" id="7eL-ww-Gcb"/>
+                                    <outlet property="delegate" destination="9W1-3U-llx" id="UQ8-rF-tgW"/>
                                 </connections>
                             </collectionView>
                         </subviews>
